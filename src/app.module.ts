@@ -5,6 +5,7 @@ import { UserModule } from "./Module/UserModule";
 import { FileModule } from "./Module/FileModule";
 import { TermModule } from "./Module/TermModule";
 import { NestModule } from "./Module/Nest/NestModule";
+import { LetterModule } from "./Module/Letter/LetterModule";
 
 @Module(
     {
@@ -25,7 +26,8 @@ import { NestModule } from "./Module/Nest/NestModule";
             FileModule,
             TermModule,
             UserModule,
-            NestModule
+            NestModule,
+            LetterModule
         ]
     }
 )

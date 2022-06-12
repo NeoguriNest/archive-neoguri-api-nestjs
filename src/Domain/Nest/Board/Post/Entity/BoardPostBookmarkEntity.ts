@@ -2,8 +2,8 @@ import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from '
 import { UserEntity } from "../../../../User/Entity/UserEntity";
 import { BoardPostEntity } from "./BoardPostEntity";
 
-@Entity({ name: 'board_post_likes' })
-export class BoardPostLikeEntity {
+@Entity({ name: 'board_post_bookmarks' })
+export class BoardPostBookmarkEntity {
     @PrimaryColumn({ type: 'varchar', length: 36, name: 'post_id' })
     postId: string;
 

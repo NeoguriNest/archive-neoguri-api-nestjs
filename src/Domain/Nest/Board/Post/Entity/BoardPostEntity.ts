@@ -2,7 +2,7 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
+    JoinColumn, JoinTable, ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryColumn,
@@ -10,6 +10,8 @@ import {
 } from 'typeorm';
 import { UserEntity } from "../../../../User/Entity/UserEntity";
 import { BoardCommentEntity } from "../../Comment/Entity/BoardCommentEntity";
+import { BoardPostHashTagEntity } from "./BoardPostHashTagEntity";
+import { BoardHashTagEntity } from "../../HashTag/BoardHashTagEntity";
 
 @Entity({ name: 'board_posts' })
 export class BoardPostEntity {
@@ -41,9 +43,18 @@ export class BoardPostEntity {
     updatedAt: Date;
 
     @ManyToOne(() => UserEntity, { eager: true, createForeignKeyConstraints: false })
-    @JoinColumn({ name: 'user_id'})
+    @JoinColumn({ name: 'user_id' })
     owner: UserEntity;
 
     @OneToMany(() => BoardCommentEntity, comment => comment.post, { eager: true, createForeignKeyConstraints: false })
     comments: BoardCommentEntity[];
+
+    @ManyToMany(() => BoardHashTagEntity)
+    @JoinTable({
+        name: 'board_post_hashtags',
+        joinColumn: { name: 'post_id' },
+        inverseJoinColumn: { name: 'hash_tag_id' }
+    })
+    hashTags: BoardHashTagEntity[];
+
 }

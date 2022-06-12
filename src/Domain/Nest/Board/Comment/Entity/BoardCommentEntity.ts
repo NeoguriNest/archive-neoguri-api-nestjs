@@ -47,12 +47,15 @@ export class BoardCommentEntity {
     updatedAt: Date;
 
     @ManyToOne(() => UserEntity)
+    @JoinColumn({ name: 'user_id'})
     owner: UserEntity;
 
     @ManyToOne(() => BoardPostEntity)
+    @JoinColumn({ name: 'post_id'})
     post: BoardPostEntity;
 
     @ManyToOne(() => BoardCommentEntity)
+    @JoinColumn({ name: 'parent_id'})
     parent: BoardCommentEntity | null;
 
     @OneToMany(() => BoardCommentEntity, comment => comment.parent)

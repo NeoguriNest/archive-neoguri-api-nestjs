@@ -1,10 +1,9 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
-import { BoardCommentEntity } from "./BoardCommentEntity";
-import { BoardPostEntity } from "../../Post/Entity/BoardPostEntity";
+import { BoardPostEntity } from "./BoardPostEntity";
 import { UserEntity } from "../../../../User/Entity/UserEntity";
 
-@Entity({ name: 'board_comment_reports' })
-export class BoardCommentReportEntity {
+@Entity({ name: 'board_post_reports' })
+export class BoardPostReportEntity {
     @PrimaryColumn({ type: 'varchar', length: 36, name: 'report_id' })
     reportId: string;
 
@@ -32,9 +31,9 @@ export class BoardCommentReportEntity {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @ManyToOne(() => BoardCommentEntity)
-    @JoinColumn({ name: 'comment_id' })
-    comment: BoardCommentEntity;
+    @ManyToOne(() => BoardPostEntity)
+    @JoinColumn({ name: 'post_id' })
+    post: BoardPostEntity;
 
     @ManyToOne(() => UserEntity)
     @JoinColumn({ name: 'user_id' })
