@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { UserEntity } from "../../../../User/Entity/UserEntity";
 import { BoardPostEntity } from "../../Post/Entity/BoardPostEntity";
+import { BoardCommentStatus } from "../Enum/BoardCommentStatus";
 
 @Entity({ name: 'board_comments' })
 export class BoardCommentEntity {
@@ -34,7 +35,7 @@ export class BoardCommentEntity {
     @Column({ name: 'content', type: 'text' })
     content: string;
 
-    @Column({ name: 'status' })
+    @Column({ name: 'status', type: 'enum', enum: BoardCommentStatus, default: BoardCommentStatus.CREATED })
     status: number;
 
     @Column({ name: 'parent_id' })

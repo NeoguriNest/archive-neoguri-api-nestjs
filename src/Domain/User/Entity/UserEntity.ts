@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { UserAgreementEntity } from "./UserAgreementEntity";
 import { UserFileEntity } from "./UserFileEntity";
+import { UserStatus } from "../Enum/UserStatus";
+import { Gender } from "../Enum/Gender";
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -27,14 +29,14 @@ export class UserEntity {
     @Column({ name: 'nickname' })
     nickname: string;
 
-    @Column({ name: 'gender' })
+    @Column({ name: 'gender', type: 'enum', enum: Gender, default: Gender.NONE })
     gender: string;
 
     @Column({ name: 'birthdate' })
     birthdate: string;
 
-    @Column({ name: 'status' })
-    status: string;
+    @Column({ name: 'status', type: 'enum', enum: UserStatus, default: UserStatus.ACTIVATED })
+    status: number;
 
     @Column({ name: 'introduction_text' })
     introductionText: string;

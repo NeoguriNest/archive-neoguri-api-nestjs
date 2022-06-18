@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { FileStatus } from "../Enum/FileStatus";
 
 @Entity({ name: 'files' })
 export class FileEntity {
@@ -17,7 +18,7 @@ export class FileEntity {
     @Column({ name: 'file_url' })
     fileUrl: number;
 
-    @Column({ name: 'status' })
+    @Column({ name: 'status', type: 'enum', enum: FileStatus, default: FileStatus.VISIBLE })
     status: number;
 
     @CreateDateColumn({ name: 'created_at' })

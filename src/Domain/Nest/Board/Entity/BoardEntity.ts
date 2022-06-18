@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { BoardStatus } from "../Enum/BoardStatus";
 
 @Entity({ name: 'boards' })
 export class BoardEntity {
@@ -11,7 +12,7 @@ export class BoardEntity {
     @Column({ name: 'title' })
     title: string;
 
-    @Column({ name: 'status' })
+    @Column({ name: 'status', type: 'enum', enum: BoardStatus, default: BoardStatus.PENDING })
     status: number;
 
     @CreateDateColumn({ name: 'created_at' })

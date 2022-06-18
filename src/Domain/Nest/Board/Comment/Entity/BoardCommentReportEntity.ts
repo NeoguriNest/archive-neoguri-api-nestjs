@@ -2,6 +2,8 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn,
 import { BoardCommentEntity } from "./BoardCommentEntity";
 import { BoardPostEntity } from "../../Post/Entity/BoardPostEntity";
 import { UserEntity } from "../../../../User/Entity/UserEntity";
+import { BoardCommentReportType } from "../Enum/BoardCommentReportType";
+import { BoardCommentReportStatus } from "../Enum/BoardCommentReportStatus";
 
 @Entity({ name: 'board_comment_reports' })
 export class BoardCommentReportEntity {
@@ -14,7 +16,7 @@ export class BoardCommentReportEntity {
     @Column({ name: 'user_id' })
     userId: string;
 
-    @Column({ name: 'type' })
+    @Column({ name: 'type', type: 'enum', enum: BoardCommentReportType })
     type: number;
 
     @Column({ name: 'content', type: 'text' })
@@ -23,7 +25,7 @@ export class BoardCommentReportEntity {
     @Column({ name: 'reported_content', type: 'text' })
     reportedContent: string;
 
-    @Column({ name: 'status' })
+    @Column({ name: 'status', type: 'enum', enum: BoardCommentReportStatus, default: BoardCommentReportStatus.CREATED })
     status: number;
 
     @CreateDateColumn({ name: 'created_at' })
