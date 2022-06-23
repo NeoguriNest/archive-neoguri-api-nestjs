@@ -1,3 +1,3 @@
 export enum UserFileType {
-    PROFILE = 0
+    PROFILE = 1
 }

@@ -1,9 +1,10 @@
-import { Column, CreateDateColumn, Entity, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { NestStatus } from "../Enum/NestStatus";
+import { UserNestEntity } from "../../User/Entity/UserNestEntity";
 
 @Entity({ name: 'nests' })
 export class NestEntity {
-    @Column({ name: 'nest_id' })
+    @PrimaryColumn({ name: 'nest_id' })
     nestId: number;
 
     @Column({ name: 'title' })
@@ -23,4 +24,7 @@ export class NestEntity {
 
     @UpdateDateColumn({ name: 'last_uploaded_at' })
     lastUpdatedAt: Date;
+
+    @OneToMany(() => UserNestEntity, 'nest_id', { createForeignKeyConstraints: false })
+    users: UserNestEntity[]
 }

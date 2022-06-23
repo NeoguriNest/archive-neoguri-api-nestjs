@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { PrimaryColumn } from "typeorm/browser";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { UserEntity } from "./UserEntity";
 import { NestEntity } from "../../Nest/Entity/NestEntity";
 import { UserNestStatus } from "../Enum/UserNestStattus";
