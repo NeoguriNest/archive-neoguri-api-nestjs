@@ -9,6 +9,8 @@ import { UserAddUseCase } from "../Application/User/UseCase/Impl/UserAddUseCase"
 import { UserAddDtoBuilder } from "../Application/User/Dto/Builder/UserAddDtoBuilder";
 import { UserRepository } from "../Persistence/Repository/UserRepository";
 import { UserDtoBuilder } from "../Application/User/Dto/Builder/UserDtoBuilder";
+import { LoginUseCase } from "../Application/Auth/UseCase/Impl/LoginUseCase";
+import { AuthController } from "../Controller/Auth/AuthController";
 
 @Module(
     {
@@ -33,10 +35,11 @@ import { UserDtoBuilder } from "../Application/User/Dto/Builder/UserDtoBuilder";
             // { provide: 'UserAddDtoBuilder', useClass: UserAddDtoBuilder },
 
             // UseCase
-            UserAddUseCase,
+            LoginUseCase,
+            UserAddUseCase
             // { provide: 'UserAddUseCase', useClass: UserAddUseCase }
         ],
-        controllers: [UserController],
+        controllers: [AuthController, UserController],
     }
 )
 export class UserModule {

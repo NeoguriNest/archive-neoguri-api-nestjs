@@ -4,10 +4,9 @@ import { UserFileEntity } from "../../Domain/User/Entity/UserFileEntity";
 import { UserAgreementEntity } from "../../Domain/User/Entity/UserAgreementEntity";
 import { UserAddDto } from "../../Application/User/Dto/UserAddDto";
 import { UserNestEntity } from "../../Domain/User/Entity/UserNestEntity";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeepPartial } from "typeorm/common/DeepPartial";
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -33,6 +32,21 @@ export class UserRepository implements UserRepositoryInterface {
         this.userAgreementRepository.save(entity.agreements);
         this.userNestRepository.save(entity.nests);
         this.userRepository.save(entity);
+    }
+
+    async findByLoginId(loginId: string): Promise<UserEntity|undefined> {
+        return await this.userRepository.findBy({
+            loginId: loginId
+        }).then((results: UserEntity[]) => {
+            if (results.length < 1) {
+                return;
+            }
+
+            return results[0];
+        }).catch((error) => {
+            Logger.debug(error);
+            throw error;
+        })
     }
 
 }

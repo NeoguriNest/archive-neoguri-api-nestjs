@@ -59,12 +59,12 @@ export class UserEntity {
         return self;
     }
 
-    @OneToMany(() => UserNestEntity, 'user_id', { eager: true, createForeignKeyConstraints: false })
+    @OneToMany(() => UserNestEntity, userNest => userNest.user, { eager: true, createForeignKeyConstraints: false })
     nests: UserNestEntity[]
 
-    @OneToMany(() => UserAgreementEntity, 'user_id', { eager: true, createForeignKeyConstraints: false })
+    @OneToMany(() => UserAgreementEntity, userAgreement => userAgreement.user, { eager: true, createForeignKeyConstraints: false })
     agreements: UserAgreementEntity[]
 
-    @OneToMany(() => UserFileEntity, 'user_id', { eager: true, createForeignKeyConstraints: false })
+    @OneToMany(() => UserFileEntity, userFile => userFile.user, { eager: true, createForeignKeyConstraints: false })
     files: UserFileEntity[]
 }

@@ -6,4 +6,6 @@ export interface UserRepositoryInterface {
 
     save(entity: UserEntity);
 
+    findByLoginId(loginId: string): Promise<UserEntity|undefined>;
+
 }

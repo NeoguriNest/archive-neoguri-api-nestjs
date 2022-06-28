@@ -1,7 +1,10 @@
+import { Roles } from "../Value/Roles";
+
 export class AuthUserDto {
     constructor(
-        readonly token: string,
-        readonly expiredAt: Date
+        readonly userId: number,
+        readonly loginId: string,
+        readonly roles: Array<Roles>
     ) {
     }
 }

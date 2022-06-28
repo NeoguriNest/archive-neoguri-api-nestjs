@@ -25,6 +25,6 @@ export class NestEntity {
     @UpdateDateColumn({ name: 'last_uploaded_at' })
     lastUpdatedAt: Date;
 
-    @OneToMany(() => UserNestEntity, 'nest_id', { createForeignKeyConstraints: false })
+    @OneToMany(() => UserNestEntity, userNest => userNest.nest, { createForeignKeyConstraints: false })
     users: UserNestEntity[]
 }
