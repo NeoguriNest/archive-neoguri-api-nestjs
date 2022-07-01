@@ -3,8 +3,10 @@ import { AuthUserDto } from "./AuthUserDto";
 export class LoginDto {
     constructor(
         readonly token: string,
-        readonly authUser: AuthUserDto,
-        readonly expiredAt: Date
+        readonly tokenExpiredAt: Date,
+        readonly refreshToken: string,
+        readonly refreshTokenExpiredAt: Date,
+        readonly authUser: AuthUserDto
     ) {
     }
 }

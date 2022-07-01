@@ -6,10 +6,14 @@ import { FileModule } from "./Module/FileModule";
 import { TermModule } from "./Module/TermModule";
 import { NestModule } from "./Module/Nest/NestModule";
 import { LetterModule } from "./Module/Letter/LetterModule";
+import { GlobalModule } from "./Module/GlobalModule";
 
 @Module(
     {
         imports: [
+            // import global module first
+            GlobalModule,
+
             TypeOrmModule.forRoot(
                 {
                     type: 'mysql',
