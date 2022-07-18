@@ -20,7 +20,7 @@ export class UserController extends CommonController {
         super();
     }
 
-    @Post('/')
+    @Post('/register')
     add(
         @Req() request: Request,
         @Res() response: Response

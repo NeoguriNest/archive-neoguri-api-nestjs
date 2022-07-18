@@ -11,6 +11,8 @@ import { UserRepository } from "../Persistence/Repository/UserRepository";
 import { UserDtoBuilder } from "../Application/User/Dto/Builder/UserDtoBuilder";
 import { LoginUseCase } from "../Application/Auth/UseCase/Impl/LoginUseCase";
 import { AuthController } from "../Controller/Auth/AuthController";
+import { AuthorizationEntity } from "../Domain/Auth/Entity/AuthorizationEntity";
+import { AuthorizationRepository } from "../Persistence/Repository/AuthorizationRepository";
 
 @Module(
     {
@@ -20,13 +22,15 @@ import { AuthController } from "../Controller/Auth/AuthController";
                     UserEntity,
                     UserNestEntity,
                     UserAgreementEntity,
-                    UserFileEntity
+                    UserFileEntity,
+                    AuthorizationEntity
                 ]
             )
         ],
         providers: [
             // Repository
             UserRepository,
+            AuthorizationRepository,
             // { provide: 'UserRepository', useClass: UserRepository },
             // Dto Builder
             UserDtoBuilder,
@@ -40,6 +44,7 @@ import { AuthController } from "../Controller/Auth/AuthController";
             // { provide: 'UserAddUseCase', useClass: UserAddUseCase }
         ],
         controllers: [AuthController, UserController],
+        exports: [ UserRepository, AuthorizationRepository ]
     }
 )
 export class UserModule {

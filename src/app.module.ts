@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { UserModule } from "./Module/UserModule";
@@ -32,10 +32,19 @@ import { GlobalModule } from "./Module/GlobalModule";
             UserModule,
             NestModule,
             LetterModule
-        ]
+        ],
+        providers: [ ]
     }
 )
 export class AppModule {
     constructor(private dataSource: DataSource) {
+    }
+
+    configure(consumer: MiddlewareConsumer) {
+        // consumer.apply(AuthenticationFilter)
+        //     .exclude("/health-check")
+        //     .exclude("/api/auth/login", "/api/auth/refresh", "/api/users/register")
+        //     .forRoutes('/**');
+
     }
 }

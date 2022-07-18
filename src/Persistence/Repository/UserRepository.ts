@@ -27,11 +27,13 @@ export class UserRepository implements UserRepositoryInterface {
         return this.userRepository.save(user);
     }
 
-    save(entity: UserEntity) {
+    save(entity: UserEntity): UserEntity {
         this.userFileRepository.save(entity.files);
         this.userAgreementRepository.save(entity.agreements);
         this.userNestRepository.save(entity.nests);
         this.userRepository.save(entity);
+
+        return entity;
     }
 
     async findByLoginId(loginId: string): Promise<UserEntity|undefined> {

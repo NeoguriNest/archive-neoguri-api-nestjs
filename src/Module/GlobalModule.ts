@@ -5,8 +5,10 @@ import { UuidGenerator } from "../Application/Util/UuidGenerator";
 @Global()
 @Module(
     {
-        providers: [ RandomStringGenerator, UuidGenerator ],
-        exports: [ RandomStringGenerator, UuidGenerator ]
+        providers: [
+            RandomStringGenerator, UuidGenerator
+        ],
+        exports: [ RandomStringGenerator, UuidGenerator ],
     }
 )
 export class GlobalModule {
