@@ -15,12 +15,14 @@ import {
 } from "../../../../Domain/User/Repository/AuthorizationRepositoryInterface";
 import { DtoBuilder } from "../../../Dto/DtoBuilder";
 import { AuthorizationAddDto } from "../../Dto/AuthorizationAddDto";
+import { EncryptUtil } from "../../../../Util/EncryptUtil";
+import { compare } from "bcrypt";
 
 @Injectable()
 /**
  * @desc 아이디와 패스워드를 이용해 이용해 JWT 발급하는 유즈케이스
  * @date 2022.06.26 ~ 2022.07.02
- * @author owen
+ * @author Owen
  */
 export class LoginUseCase implements LoginUseCaseInterface {
     public static REFRESH_TOKEN_EXPIRES_IN: number = (60 * 60 * 24 * 7 * 1000); // 7days;
@@ -28,7 +30,8 @@ export class LoginUseCase implements LoginUseCaseInterface {
     constructor(
         @Inject(UserRepository) private userRepository: UserRepositoryInterface,
         @Inject(AuthorizationRepository) private authorizationRepository: AuthorizationRepositoryInterface,
-        @Inject(RandomStringGenerator) private stringGenerator: StringGeneratorInterface
+        @Inject(RandomStringGenerator) private stringGenerator: StringGeneratorInterface,
+        @Inject(EncryptUtil) protected encryptUtil: EncryptUtil
     ) {
     }
 
@@ -36,6 +39,10 @@ export class LoginUseCase implements LoginUseCaseInterface {
 
         const user = await this.userRepository.findByLoginId(loginId);
         if (user === undefined) {
+            throw new MatchedUserDoesNotExistException();
+        }
+
+        if (this.encryptUtil.compare(password, user.password) === false) {
             throw new MatchedUserDoesNotExistException();
         }
 

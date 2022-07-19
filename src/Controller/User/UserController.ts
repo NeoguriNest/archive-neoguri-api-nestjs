@@ -30,7 +30,6 @@ export class UserController extends CommonController {
 
         this.userAdd.execute(userAddDto)
             .then((userDto: UserDto) => {
-                console.log(userDto);
                 this.send(response, new ResultMessage(
                     HttpStatus.CREATED,
                     userDto

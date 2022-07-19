@@ -7,6 +7,7 @@ import { TermModule } from "./Module/TermModule";
 import { NestModule } from "./Module/Nest/NestModule";
 import { LetterModule } from "./Module/Letter/LetterModule";
 import { GlobalModule } from "./Module/GlobalModule";
+import { AuthenticationFilter } from "./Middleware/Auth/AuthenticationFilter";
 
 @Module(
     {
@@ -33,7 +34,7 @@ import { GlobalModule } from "./Module/GlobalModule";
             NestModule,
             LetterModule
         ],
-        providers: [ ]
+        providers: [ AuthenticationFilter ]
     }
 )
 export class AppModule {
@@ -41,10 +42,9 @@ export class AppModule {
     }
 
     configure(consumer: MiddlewareConsumer) {
-        // consumer.apply(AuthenticationFilter)
-        //     .exclude("/health-check")
-        //     .exclude("/api/auth/login", "/api/auth/refresh", "/api/users/register")
-        //     .forRoutes('/**');
-
+        consumer.apply(AuthenticationFilter)
+            .exclude("/health-check")
+            .exclude("/api/auth/login", "/api/auth/refresh", "/api/users/register")
+            .forRoutes('/**');
     }
 }

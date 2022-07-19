@@ -1,7 +1,8 @@
-import { Injectable, Scope } from "@nestjs/common";
+import { Inject, Injectable, Scope } from "@nestjs/common";
 import { UserAddDto } from "../UserAddDto";
 import { DtoBuilderInterface } from "../../../Dto/DtoBuilderInterface";
 import { Gender } from "../../../../Domain/User/Enum/Gender";
+import { EncryptUtil } from "../../../../Util/EncryptUtil";
 
 export type UserAddApiRequestBody = {
     loginId: string,
@@ -15,10 +16,13 @@ export type UserAddApiRequestBody = {
 
 @Injectable()
 export class UserAddDtoBuilder implements DtoBuilderInterface<UserAddApiRequestBody, UserAddDto> {
+    constructor(@Inject(EncryptUtil) protected encryptUtil: EncryptUtil) {
+    }
+
     build(source: UserAddApiRequestBody): UserAddDto {
         return new UserAddDto(
             source.loginId,
-            source.password,
+            this.encryptUtil.encrypt(source.password),
             source.email,
             source.nickname,
             source.gender,
